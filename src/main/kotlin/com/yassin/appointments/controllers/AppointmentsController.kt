@@ -1,18 +1,16 @@
 package com.yassin.appointments.controllers
 
+import com.yassin.appointments.exceptions.BadRequestException
 import com.yassin.appointments.models.Appointment
 import com.yassin.appointments.services.AppointmentService
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 
 @RestController
-@RequestMapping(value = ["/api/v1/appointment-scheduler/appointments"])
+@RequestMapping(value = ["/api/v1/appointment-scheduler/clients"])
 class AppointmentsController constructor(
         private val appointmentService: AppointmentService
 ){
-    @GetMapping(value = ["/test"])
-    fun test(): String = "hello"
-
     @GetMapping(value = ["/{clientId}"])
     fun getAppointments(
             @PathVariable clientId: String

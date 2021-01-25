@@ -9,22 +9,22 @@ import java.time.LocalDateTime
  */
 @Repository
 class AppointmentDao {
-    final var allAppointments = mutableListOf<Appointment>()
+    final var appointments = mutableListOf<Appointment>()
 
-    val clientAId = "marc"
-    val clientAStart: LocalDateTime = LocalDateTime.of(2021, 3, 19, 12, 0, 0)
+    private final val clientAId = "cId1234"
+    private final val clientAStart: LocalDateTime = LocalDateTime.of(2021, 3, 19, 12, 0, 0)
 
     init {
         val a1 = Appointment(clientAId, clientAStart, clientAStart.plusMinutes(30))
-        allAppointments.add(a1)
+        appointments.add(a1)
     }
 
     fun insertAppointment(newAppointment: Appointment): Appointment {
-        allAppointments.add(newAppointment)
+        appointments.add(newAppointment)
         return newAppointment
     }
 
     fun findAppointmentsByClientId(clientId: String): List<Appointment> {
-        return allAppointments.filter { it.clientId == clientId }
+        return appointments.filter { it.clientId == clientId }
     }
 }
