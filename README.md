@@ -15,12 +15,12 @@ Service for scheduling appointments
 ```
 [
   {
-    "clientId": "client@clients.com",
+    "clientId": "cId1234",
     "start": "2021-03-19T12:00:00",
     "end": "2021-03-19T12:30:00"
   },
   {
-    "clientId": "client@clients.com",
+    "clientId": "cId1234",
     "start": "2021-03-20T12:00:00",
     "end": "2021-03-20T12:30:00"
   }
@@ -43,12 +43,12 @@ Service for scheduling appointments
 ```
 [
   {
-    "clientId": "client@clients.com",
+    "clientId": "cId1234",
     "start": "2021-03-19T12:00:00",
     "end": "2021-03-19T12:30:00"
   },
   {
-    "clientId": "client@clients.com",
+    "clientId": "cId1234",
     "start": "2021-03-20T12:00:00",
     "end": "2021-03-20T12:30:00"
   }
@@ -79,15 +79,34 @@ docker pull marcyassin/appointment-scheduler:latest
 docker run -d -p 8080:8080 -t marcyassin/appointment-scheduler:latest
 ```
 
+### Test 
+```shell script
+GET http://localhost:8080/api/v1/appointment-scheduler/clients/cId1234
+
+Response: (should see)
+[
+  {
+    "clientId": "cId1234",
+    "start": "2021-03-19T12:00:00",
+    "end": "2021-03-19T12:30:00"
+  }
+]
+```
+
 ### TODO
 - Move clientId to unique generator model with validation instead of string + authentication
+- Or just use oAuth to handle identifying users
 - Client creation should happen first before appointment creation in another API endpoint / service
 - Connect Service to Datastore (postgres or NoSQL: cassandra, mongo) to persist appointments 
 - Add service health points for service + DB instance
-- Add additional endpoints, reschedule appointments, delete appointments etc
-- Add integration tests to verify each endpoint behavior
-- Add docker compose file
+- Add logic to only allow appointments for current date and beyond
+- Add logic to expire/remove already passed appointments (by date)
+- Add additional endpoints/features: reschedule appointments, delete appointments etc
+- Add integration tests to verify each above endpoint behavior (see `AppointmentSchedulerTests`)
+- Add docker compose file to set up full test environment
+- Add more configurations (application.properties) to ready for test, prod environments
 - wrap service in a CI pipeline to streamline builds 
+- and much more
 
 
 
